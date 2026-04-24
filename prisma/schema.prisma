@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  // Optional: Define where the code should be generated
+  output   = "../src/generated/type-graphql"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum OrderStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum role{
+  USER
+  ADMIN
+}
+
+
+model User {
+  id            Int            @id @default(autoincrement())
+  campaignId    String?
+  name          String
+  email         String         @unique
+  password      String?        // Nullable for Google Auth users
+  googleId      String?        @unique
+  mobileNo      String?       
+  dob           DateTime?
+  age           Int?
+  role          role           @default(USER)
+  qrtoken       String?        @unique
+
+  // OTP Verification fields
+  isVerified    Boolean        @default(false)
+  otp           String?
+
+  purchases     UserPurchase[]
+  createdAt     DateTime       @default(now())
+
+  //Registration Purchase 
+  paymentStatus              OrderStatus @default(PENDING)
+  registrationrazorpayOrderId  String?     @unique
+  registrationrazorpayPaymentId String?     @unique
+}
+
+model Merch {
+  id          Int            @id @default(autoincrement())
+  name        String
+  price       Float
+  purchases   UserPurchase[]
+}
+
+model UserPurchase {
+  id                Int         @id @default(autoincrement())
+  qty               Int
+  size              String
+  status            OrderStatus @default(PENDING)
+
+  
+  // Razorpay Specifics
+  razorpayOrderId   String?     @unique
+  razorpayPaymentId String?     @unique
+  
+  // Relations
+  userId            Int
+  user              User        @relation(fields: [userId], references: [id])
+  
+  merchId           Int
+  merch             Merch       @relation(fields: [merchId], references: [id])
+
+  campaignId        String?
+  createdAt         DateTime    @default(now())
+}
+
+model OTPVerification {
+  email     String   @id
+  otp       String
+  createdAt DateTime @default(now())
+}

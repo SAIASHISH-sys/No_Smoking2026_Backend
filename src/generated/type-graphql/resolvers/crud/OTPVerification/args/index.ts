@@ -1,0 +1,15 @@
+export { AggregateOTPVerificationArgs } from "./AggregateOTPVerificationArgs";
+export { CreateManyAndReturnOTPVerificationArgs } from "./CreateManyAndReturnOTPVerificationArgs";
+export { CreateManyOTPVerificationArgs } from "./CreateManyOTPVerificationArgs";
+export { CreateOneOTPVerificationArgs } from "./CreateOneOTPVerificationArgs";
+export { DeleteManyOTPVerificationArgs } from "./DeleteManyOTPVerificationArgs";
+export { DeleteOneOTPVerificationArgs } from "./DeleteOneOTPVerificationArgs";
+export { FindFirstOTPVerificationArgs } from "./FindFirstOTPVerificationArgs";
+export { FindFirstOTPVerificationOrThrowArgs } from "./FindFirstOTPVerificationOrThrowArgs";
+export { FindManyOTPVerificationArgs } from "./FindManyOTPVerificationArgs";
+export { FindUniqueOTPVerificationArgs } from "./FindUniqueOTPVerificationArgs";
+export { FindUniqueOTPVerificationOrThrowArgs } from "./FindUniqueOTPVerificationOrThrowArgs";
+export { GroupByOTPVerificationArgs } from "./GroupByOTPVerificationArgs";
+export { UpdateManyOTPVerificationArgs } from "./UpdateManyOTPVerificationArgs";
+export { UpdateOneOTPVerificationArgs } from "./UpdateOneOTPVerificationArgs";
+export { UpsertOneOTPVerificationArgs } from "./UpsertOneOTPVerificationArgs";

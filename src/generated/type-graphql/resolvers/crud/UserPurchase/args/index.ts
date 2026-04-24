@@ -1,0 +1,15 @@
+export { AggregateUserPurchaseArgs } from "./AggregateUserPurchaseArgs";
+export { CreateManyAndReturnUserPurchaseArgs } from "./CreateManyAndReturnUserPurchaseArgs";
+export { CreateManyUserPurchaseArgs } from "./CreateManyUserPurchaseArgs";
+export { CreateOneUserPurchaseArgs } from "./CreateOneUserPurchaseArgs";
+export { DeleteManyUserPurchaseArgs } from "./DeleteManyUserPurchaseArgs";
+export { DeleteOneUserPurchaseArgs } from "./DeleteOneUserPurchaseArgs";
+export { FindFirstUserPurchaseArgs } from "./FindFirstUserPurchaseArgs";
+export { FindFirstUserPurchaseOrThrowArgs } from "./FindFirstUserPurchaseOrThrowArgs";
+export { FindManyUserPurchaseArgs } from "./FindManyUserPurchaseArgs";
+export { FindUniqueUserPurchaseArgs } from "./FindUniqueUserPurchaseArgs";
+export { FindUniqueUserPurchaseOrThrowArgs } from "./FindUniqueUserPurchaseOrThrowArgs";
+export { GroupByUserPurchaseArgs } from "./GroupByUserPurchaseArgs";
+export { UpdateManyUserPurchaseArgs } from "./UpdateManyUserPurchaseArgs";
+export { UpdateOneUserPurchaseArgs } from "./UpdateOneUserPurchaseArgs";
+export { UpsertOneUserPurchaseArgs } from "./UpsertOneUserPurchaseArgs";
