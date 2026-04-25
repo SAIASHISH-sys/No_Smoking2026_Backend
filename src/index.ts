@@ -47,6 +47,8 @@ const strappingBoot = async () => {
     "http://localhost:5173",
     "https://shaastra.org",
     "https://www.shaastra.org",
+    "https://no-smoking-trial.duckdns.org",
+
   ];
 
   app.use(cors({
