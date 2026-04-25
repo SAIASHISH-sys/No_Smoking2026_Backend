@@ -248,6 +248,47 @@ export class PaymentResolver {
   }
 
   /**
+   * Checkout cart with pay-later: create UserPurchase records with PENDING status, no Razorpay
+   */
+  @TypeGraphQL.Mutation(() => [TypeGraphQL.Float], { nullable: false })
+  async payLaterCart(
+    @TypeGraphQL.Arg("items", () => [CartOrderItemInput]) items: CartOrderItemInput[],
+    @TypeGraphQL.Ctx() ctx: MyContext
+  ): Promise<number[]> {
+    if (!ctx.user) throw new Error("Unauthorized: User not authenticated");
+    if (!items.length) throw new Error("Cart is empty");
+
+    try {
+      const merchIds = items.map((i) => i.merchId);
+      const merches = await ctx.prisma.merch.findMany({
+        where: { id: { in: merchIds } },
+      });
+      const knownIds = new Set(merches.map((m) => m.id));
+      for (const item of items) {
+        if (!knownIds.has(item.merchId)) throw new Error(`Merch ${item.merchId} not found`);
+      }
+
+      const purchases = await Promise.all(
+        items.map((item) =>
+          ctx.prisma.userPurchase.create({
+            data: {
+              merchId: item.merchId,
+              qty: item.qty,
+              size: item.size,
+              userId: ctx.user!.id,
+              status: OrderStatus.PENDING,
+            },
+          })
+        )
+      );
+
+      return purchases.map((p) => p.id);
+    } catch (error) {
+      throw new Error(`Failed to place pay-later order: ${error}`);
+    }
+  }
+
+  /**
    * Verify cart payment and mark all purchases as completed
    */
   @TypeGraphQL.Mutation(() => Boolean, { nullable: false })
